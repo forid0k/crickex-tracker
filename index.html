@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Crickex Result Tracker</title>
+  <style>
+    body { font-family: sans-serif; text-align: center; background: #f0f0f0; }
+    .grid { display: grid; grid-template-columns: repeat(5, 60px); gap: 10px; margin-top: 20px; }
+    .box { width: 60px; height: 60px; background: #ccc; border-radius: 8px; line-height: 60px; font-weight: bold; }
+    .active { background: orange; color: white; }
+  </style>
+</head>
+<body>
+  <h1>Live Result (1-20)</h1>
+  <div class="grid" id="grid"></div>
+
+  <script>
+    const grid = document.getElementById("grid");
+    for (let i = 1; i <= 20; i++) {
+      const div = document.createElement("div");
+      div.className = "box";
+      div.textContent = i;
+      grid.appendChild(div);
+    }
+
+    async function fetchResult() {
+      try {
+        const res = await fetch('/api/result');
+        const data = await res.json();
+        document.querySelectorAll('.box').forEach(box => {
+          box.classList.remove('active');
+          if (box.textContent == data.result) {
+            box.classList.add('active');
+          }
+        });
+      } catch (e) {
+        console.error('Error fetching:', e);
+      }
+    }
+
+    fetchResult();
+    setInterval(fetchResult, 7000);
+  </script>
+</body>
+</html>

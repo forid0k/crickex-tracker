@@ -1,0 +1,12 @@
+{
+  "name": "crickex-tracker-bot",
+  "version": "1.0.0",
+  "scripts": {
+    "dev": "vercel dev",
+    "start": "vercel dev"
+  },
+  "dependencies": {
+    "chrome-aws-lambda": "^10.1.0",
+    "puppeteer-core": "^21.3.8"
+  }
+}
